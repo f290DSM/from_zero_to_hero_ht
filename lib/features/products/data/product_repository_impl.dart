@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:from_zero_to_hero_ht/features/products/domain/product.dart';
 import 'package:from_zero_to_hero_ht/features/products/domain/product_repository.dart';
 import 'package:from_zero_to_hero_ht/features/products/presentation/providers/dio_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -14,6 +15,16 @@ class ProductRepositoryImpl implements ProductRepository {
   Future<List<String>> findAllCategories() async {
     final response = await dio.get('/categories');
     return [for (final category in response.data as List) category.toString()];
+  }
+
+  @override
+  Future<List<Product>> findAllByCategories(String category) async {
+    final response = await dio.get('/category/$category');
+
+    return [
+      for (final product in response.data['products'] as List)
+        Product.fromJson(product)
+    ];
   }
 }
 

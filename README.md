@@ -451,6 +451,220 @@ class Product with _$Product {
 }
 
 ```
+2. Atualize a inteface `features/products/domain/product_repository.dart`.
+
+```dart
+import 'product.dart';
+
+abstract class ProductRepository {
+  Future<List<String>> findAllCategories();
+  Future<List<Product>> findAllByCategories();
+}
+
+```
+
+3. Incluir o método de requisição para produtos por categoria no arquivo `features/products/data/product_repository_impl.dart`. 
+
+```dart
+import 'package:dio/dio.dart';
+import 'package:from_zero_to_hero_ht/features/products/domain/product.dart';
+import 'package:from_zero_to_hero_ht/features/products/domain/product_repository.dart';
+import 'package:from_zero_to_hero_ht/features/products/presentation/providers/dio_provider.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'product_repository_impl.g.dart';
+
+class ProductRepositoryImpl implements ProductRepository {
+  final Dio dio;
+
+  ProductRepositoryImpl({required this.dio});
+
+  @override
+  Future<List<String>> findAllCategories() async {
+    final response = await dio.get('/categories');
+    return [for (final category in response.data as List) category.toString()];
+  }
+
+  // Incluimos o método que faz a requisição e conersão da resposta para uma lista de Products.
+  @override
+  Future<List<Product>> findAllByCategories(String category) async {
+    final response = await dio.get('/category/$category');
+
+    return [
+      for (final product in response.data['products'] as List)
+        Product.fromJson(product)
+    ];
+  }
+}
+
+// Criação do provedor de repository como DI.
+@riverpod
+ProductRepositoryImpl productRepository(ProductRepositoryRef ref) {
+  return ProductRepositoryImpl(dio: ref.watch(dioProvider));
+}
+
+```
+
+4. Crie o provider de produtos por categoria para a respectiva tela no arquivo `features/products/presentation/providers/product_provider.dart`.
+
+```dart
+import 'package:from_zero_to_hero_ht/features/products/data/product_repository_impl.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import '../../domain/product.dart';
+
+part 'product_provider.g.dart';
+
+@riverpod
+FutureOr<List<Product>> productsByCategory(ProductsByCategoryRef ref,
+    {required String category}) async {
+  final products =
+      await ref.watch(productRepositoryProvider).findAllByCategories(category);
+  return products;
+}
+```
+> Mesmo procedimento da tela anterior, a tela irá observar este provedor.
+
+### Ajustando a tela de produtos por categoria
+
+Com o provedor garantindo o acesso aos dados, agora iremos fazer com que a tela **OBSERVE** o provider e novamente exiba os dados com base no status do provider em meio à requisição à API.
+
+> Vamos considerar que voce compreendeu o consumo na tela anterior de categorias e já incluir o código totalmente alterado.
+
+1. Altere o arquivo `lib/features/products/presentation/products_category_page.dart`.
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:from_zero_to_hero_ht/features/products/presentation/product_detail_page.dart';
+import 'package:from_zero_to_hero_ht/features/products/presentation/providers/product_provider.dart';
+
+// 1. Alterar o StatelessWidget para ConsumerWidget
+class ProductBycategoryConsumer extends ConsumerWidget {
+  const ProductBycategoryConsumer(this.category, {super.key});
+
+  final String category;
+
+  @override //2. Incluir o WidgetRef
+  Widget build(BuildContext context, WidgetRef ref) {
+
+    //3. OBSERVAR o estado do provider productsByCategoryProvider com base no parametro category
+    final products = ref.watch(productsByCategoryProvider(category: category));
+
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('Products By Category'),
+        ),
+        //4. Uso do AsyncStare do provider como na tela anterior
+        body: products.when(
+          data: (data) {
+            return ListView.builder(
+              itemCount: data.length,
+              itemBuilder: (context, index) {
+                final product = data[index];
+                //TODO: Implementem os cards com base na especificacao do M3.
+                return Card(
+                  child: ListTile(
+                    title: Text(product.title),
+                    onTap: () {
+                      // 5. Navegação para a tela de detalhe de produto enviando o objeto completo já coletado na request
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProductDetail(product: product),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              },
+            );
+          },
+          error: (error, stackTrace) {
+            return Center(child: Text(error.toString()));
+          },
+          loading: () {
+            return const Center(child: CircularProgressIndicator());
+          },
+        ));
+  }
+}
+```
+
+2. Atualize o arquivo `lib/features/products/presentation/product_detail_page.dart` para que ele receba o produto com os dados preenchidos a partir da tela de produtos por categoria.
+
+```dart
+import 'package:flutter/material.dart';
+
+import '../domain/product.dart';
+
+class ProductDetail extends StatelessWidget {
+  const ProductDetail({super.key, required this.product});
+
+  final Product product;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Product Detatil'),
+      ),
+      body: Expanded(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(product.title),
+            Text(product.brand),
+            Text(product.description),
+            Text(product.category),
+            Text(product.price.toStringAsFixed(2)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+
+> Note que esta tela não está consumindo nenhum provider ainda... Após voces aplicarem o Material 3 e criarem os componentes de UI atualizados, iremos comsumir o último end-point o **/product/{id}**.
+
+## Teste o App
+
+O resultado esperaado para este ponto seria:
+
+1. Consumir o end-point **/categories**;
+
+<img src="assets/images/print_03.png" height="500px">
+
+2. Consumir o endpoint **/category/{category}**;
+
+<img src="assets/images/print_04.png" height="500px">
+
+3. Exibir os detalhes individuais de um produto selecionado na página de produtos por categoria.
+
+<img src="assets/images/print_05.png" height="500px">
+
+
+## Agora é com vocês
+
+Com base na discussão e persquisa sobre o material design vocês devem definir a forma com a qual os dados dos produtos devem ser apresentados, como lista, grid, card.
+
+Pense nos componentes que voce utilizaria para apresentar os produtos considerando as oreintacões do material design dispniveis em [material.io](https://m3.material.io).
+
+Vale lembrar que as telas já consomem a API e os dados já estão disponíveis, então foquem na UI.
+
+## Considerações finais
+
+O objetivo deste projeto foi demonstrar a versatilidade, robustez e performance do Dart/Flutter para criação de aplicações multi-plataforma.
+
+Os conteúdos apresentados foram bem avançados para o momento mas, gostaria de ponderar que em praticamente 2 noites já produzimos um App que consome uma API já utilizando gerencia de estado, o Design Pattern Observer e muitas facetas do Clean Code como o baixo acoplamento entre as classes, utilizando injeção de dependencia, programação orientada à interfaces, orientação à features!
+
+Foi complexo para nossas aula iniciais mas eu acredito que tenha valido à pena!
+
+Melhorem a interface do App e bora!
+
+# BORA PARA O DART SIDE
 
 
 

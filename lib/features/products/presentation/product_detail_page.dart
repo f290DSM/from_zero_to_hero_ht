@@ -13,12 +13,16 @@ class ProductDetail extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Product Detatil'),
       ),
-      body: const Expanded(
+      body: Expanded(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text('A'),
-            Text('B'),
-            Text('C'),
+            Text(product.title),
+            Text(product.brand),
+            Text(product.description),
+            Text(product.category),
+            Text(product.price.toStringAsFixed(2)),
           ],
         ),
       ),
