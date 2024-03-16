@@ -248,7 +248,7 @@ FutureOr<List<String>> categories(CategoriesRef ref) async {
 
 Execute o `build_runner` para gerar os providers.
 ```dart
-art run build_runner build -d
+dart run build_runner build -d
 ```
 
 > Neste ponto já temos o necessário para realizar a requisição para as caterias e inclui-la na tela de categorias.
@@ -299,7 +299,7 @@ class CategoryPage extends ConsumerWidget {
 }
 ```
 
-4. Faça com que ao ouvir os estados do provedor (Sucesso, Erro, carregamento) a tela seja atualizada. Precisaremos incluir o `ListView.builder()` seja criado em caso de sucesso da requisição de categorias. Realize as alterações abaixo.
+4. Faça com que ao ouvir os estados do provedor (Sucesso, Erro, Carregamento) a tela seja atualizada. Precisaremos incluir o `ListView.builder()` seja criado em caso de sucesso da requisição de categorias. Observe o código abaixo.
 
 > No `body` iremos substitur o conteudo anterior por um código semelhante ao trecho abaixo. Este trecho retorna para a tela um Widget diferente para cada estado [`sucesso`, `erro`, `carregamento`]
 
