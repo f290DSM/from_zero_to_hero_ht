@@ -1,6 +1,1 @@
-import 'product.dart';
-
-abstract class ProductRepository {
-  Future<List<String>> findAllCategories();
-  Future<List<Product>> findAllByCategories(String category);
-}
+//TODO: Criar o contrato para o repositório de produtos

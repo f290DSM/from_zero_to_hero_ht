@@ -4,41 +4,23 @@ import 'package:from_zero_to_hero_ht/features/products/presentation/providers/ca
 
 import 'widgets/category_widget.dart';
 
-class CategoryPage extends ConsumerWidget {
+class CategoryPage extends StatelessWidget {
   const CategoryPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final categories = ref.watch(categoriesProvider);
-
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 8,
         title: const Text('Category Products'),
       ),
-      body: categories.when(
-        data: (data) {
-          return ListView.builder(
-            itemCount: data.length,
-            itemBuilder: (context, index) {
-              final category = data[index];
-              return CategoryCard(
-                category: category,
-                indexColor: index,
-              );
-            },
-          );
-        },
-        error: (error, stackTrace) {
-          return Center(
-            child: Text(
-              error.toString(),
-            ),
-          );
-        },
-        loading: () {
-          return const Center(
-            child: CircularProgressIndicator(),
+      body: ListView.builder(
+        itemCount: 20,
+        itemBuilder: (context, index) {
+          final category = 'Categoria ${index + 1}';
+          return CategoryCard(
+            category: category,
+            indexColor: index,
           );
         },
       ),
