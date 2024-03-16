@@ -525,6 +525,14 @@ FutureOr<List<Product>> productsByCategory(ProductsByCategoryRef ref,
 ```
 > Mesmo procedimento da tela anterior, a tela irá observar este provedor.
 
+5. Execute o build_runner.
+
+> Cada novo provider criado devemos executar o build_runner, porém existe a possibilidade te trocarmos o parametro -d por watch, com o watch a IDE irá monitorar as alterações e irá recompilar e gerar as dependencias automaticamente, aí fica a seu critério a urilização do watch.
+
+```dart
+dart run build_runner build -d
+```
+
 ### Ajustando a tela de produtos por categoria
 
 Com o provedor garantindo o acesso aos dados, agora iremos fazer com que a tela **OBSERVE** o provider e novamente exiba os dados com base no status do provider em meio à requisição à API.
