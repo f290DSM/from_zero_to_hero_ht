@@ -564,14 +564,14 @@ class ProductBycategoryConsumer extends ConsumerWidget {
         appBar: AppBar(
           title: const Text('Products By Category'),
         ),
-        //4. Uso do AsyncStare do provider como na tela anterior
+        //4. Uso do AsyncState do provider assim como na tela anterior
         body: products.when(
           data: (data) {
             return ListView.builder(
               itemCount: data.length,
               itemBuilder: (context, index) {
                 final product = data[index];
-                //TODO: Implementem os cards com base na especificacao do M3.
+                //TODO: Implementar os cards com base na especificacao do M3.
                 return Card(
                   child: ListTile(
                     title: Text(product.title),
