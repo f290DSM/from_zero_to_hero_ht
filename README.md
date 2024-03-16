@@ -523,6 +523,15 @@ FutureOr<List<Product>> productsByCategory(ProductsByCategoryRef ref,
   return products;
 }
 ```
+
+5. Execute o build_runner.
+
+> Cada novo provider criado devemos executar o build_runner, porém existe a possibilidade te trocarmos o parametro -d por watch, com o watch a IDE irá monitorar as alterações e irá recompilar e gerar as dependencias automaticamente, aí fica a seu critério a urilização do watch.
+
+```dart
+dart run build_runner build -d
+```
+
 > Mesmo procedimento da tela anterior, a tela irá observar este provedor.
 
 ### Ajustando a tela de produtos por categoria
