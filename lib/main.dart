@@ -11,8 +11,10 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: CategoryPage(),
+    return MaterialApp(
+      theme:
+          ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.green)),
+      home: const CategoryPage(),
     );
   }
 }
