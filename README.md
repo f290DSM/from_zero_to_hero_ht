@@ -6,6 +6,8 @@ Vamos criar um projeto que irá focar no consumo de API utilizando também geren
 
 Iremos consumir o serviço de produtos [DummyJSON](https://dummyjson.com/docs/products).
 
+O projeto tem as branches initial e final, utilize a initial para concluir o desafio e a final caso deseje verificar uma das implementações possíveis.
+
 ## Criando o Projeto
 
 > Caso você não clone o projeto deste repositório, utilize o comando criação abaixo  partir do diretorio de sua preferencia execute. Também valide os widgets utilizados nas demais instruções, todos eles já foram criados no projeto. O mais fácil seria realmente clonar o projeto.
