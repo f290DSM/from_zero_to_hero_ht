@@ -2,7 +2,7 @@
 
 Este projeto tem por objetivo dar um boost na utilização do Flutter para aplicativos moveis com a possibilidade de utilização de múltiplas plataformas.
 
-Vamos criar um projeto que irá focar no app como front-end utilizando também gerencia de estado para  desacoplamento das camadas do aplicativo.
+Vamos criar um projeto que irá focar no consumo de API utilizando também gerencia de estado para desacoplamento das camadas do aplicativo.
 
 Iremos consumir o serviço de produtos [DummyJSON](https://dummyjson.com/docs/products).
 
@@ -250,7 +250,7 @@ FutureOr<List<String>> categories(CategoriesRef ref) async {
 
 Execute o `build_runner` para gerar os providers.
 ```dart
-art run build_runner build -d
+dart run build_runner build -d
 ```
 
 > Neste ponto já temos o necessário para realizar a requisição para as caterias e inclui-la na tela de categorias.
