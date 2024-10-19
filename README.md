@@ -8,6 +8,8 @@ Iremos consumir o serviço de produtos [DummyJSON](https://dummyjson.com/docs/pr
 
 O projeto tem as branches initial e final, utilize a initial para concluir o desafio e a final caso deseje verificar uma das implementações possíveis.
 
+> Recomendo que utilize a branch initial.
+
 ## Criando o Projeto
 
 > Caso você não clone o projeto deste repositório, utilize o comando criação abaixo  partir do diretorio de sua preferencia execute. Também valide os widgets utilizados nas demais instruções, todos eles já foram criados no projeto. O mais fácil seria realmente clonar o projeto.
@@ -162,7 +164,7 @@ curl -X GET https://dummyjson.com/products/1
 
 Com base nas aulas passadas, já temos as telas criadas com a devida navegação, a navegação discutiremos o inicio da próxima aula.
 
-Temos o aplicativo criado sem a utilização da Gerencia de estado com RiverPod.
+Temos o aplicativo criado sem a utilização da Gerencia de estado com RiverPod (todas as telas estão disponíveis no repositório).
 
 Este repositório como está na branch main teremos o código inicial, na branch final o código completo em breve.
 
