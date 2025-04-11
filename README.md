@@ -12,11 +12,13 @@ O projeto tem as branches initial e final, utilize a initial para concluir o des
 
 ## Criando o Projeto
 
-> Caso você não clone o projeto deste repositório, utilize o comando criação abaixo  partir do diretorio de sua preferencia execute. Também valide os widgets utilizados nas demais instruções, todos eles já foram criados no projeto. O mais fácil seria realmente clonar o projeto.
+> Caso você não clone o projeto deste repositório, utilize o comando criação abaixo  partir do diretorio de sua preferencia execute os comandos abaixo. Também valide os widgets utilizados nas demais instruções, todos eles já foram criados no projeto. O mais fácil seria realmente clonar o projeto.
 
 ```shell
 flutter create --project-name=from_zero_to_hero --org=br.gov.sp.fatecararas --platforms=web,android from_zero_to_hero
 ```
+
+> Caso queira dar uma espiadinha na versão final, acesse a branch **final**, Os Widgets utilizados em sua execução você encontrará-los [aqui](https://github.com/f290DSM/from_zero_to_hero_ht/tree/final/lib/features/products/presentation/widgets).
 
 Caso contrário é clonar este repositório.
 
