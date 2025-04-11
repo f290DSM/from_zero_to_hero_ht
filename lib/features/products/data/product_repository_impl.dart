@@ -13,7 +13,7 @@ class ProductRepositoryImpl implements ProductRepository {
 
   @override
   Future<List<String>> findAllCategories() async {
-    final response = await dio.get('/categories');
+    final response = await dio.get('/category-list');
     return [for (final category in response.data as List) category.toString()];
   }
 
@@ -23,7 +23,7 @@ class ProductRepositoryImpl implements ProductRepository {
 
     return [
       for (final product in response.data['products'] as List)
-        Product.fromJson(product)
+        Product.fromJson(product),
     ];
   }
 }
