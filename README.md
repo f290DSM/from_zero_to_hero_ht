@@ -59,7 +59,7 @@ Abaixo teremos as requisições que iremos consumir assim como as respostas das 
 
 #### Request
 ```shell
-curl -X GET https://dummyjson.com/products/categories
+curl -X GET https://dummyjson.com/products/category-list
 ``` 
 
 #### Response
@@ -433,18 +433,19 @@ part 'product.g.dart';
 
 @freezed
 class Product with _$Product {
-  factory Product(
-      {required int id,
-      required String title,
-      required String description,
-      required double price,
-      required double discountPercentage,
-      required double rating,
-      required int stock,
-      required String brand,
-      required String category,
-      required String thumbnail,
-      required List<String> images}) = _Product;
+  factory Product({
+    required int id,
+    required String title,
+    required String description,
+    required double price,
+    required double discountPercentage,
+    required double rating,
+    required int stock,
+    String? brand,
+    required String category,
+    required String thumbnail,
+    required List<String> images,
+  }) = _Product;
 
   factory Product.fromJson(Map<String, dynamic> json) =>
       _$ProductFromJson(json);

@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import '../domain/product.dart';
 
@@ -12,9 +10,7 @@ class ProductDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Product Detatil'),
-      ),
+      appBar: AppBar(title: const Text('Product Detatil')),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -22,9 +18,10 @@ class ProductDetail extends StatelessWidget {
             AspectRatio(
               aspectRatio: 1,
               child: PageView(
-                children: product.images
-                    .map((e) => Image.network(e, fit: BoxFit.cover))
-                    .toList(),
+                children:
+                    product.images
+                        .map((e) => Image.network(e, fit: BoxFit.cover))
+                        .toList(),
               ),
             ),
             Column(
@@ -33,19 +30,24 @@ class ProductDetail extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(16),
-                  child: Text(product.title,
-                      style: Theme.of(context).textTheme.headlineLarge),
+                  child: Text(
+                    product.title,
+                    style: Theme.of(context).textTheme.headlineLarge,
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 16.0),
-                  child: Text(product.brand,
-                      style: Theme.of(context).textTheme.headlineMedium),
+                  child: Text(
+                    product.brand ?? '',
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
                 ),
                 ListTile(
                   leading: const Icon(Icons.category),
                   title: const Text('Categoria'),
-                  subtitle:
-                      Text(product.category.replaceAll('_', ' ').toUpperCase()),
+                  subtitle: Text(
+                    product.category.replaceAll('_', ' ').toUpperCase(),
+                  ),
                 ),
                 ListTile(
                   leading: const Icon(Icons.description),
@@ -68,7 +70,7 @@ class ProductDetail extends StatelessWidget {
                   subtitle: Text(product.stock.toStringAsFixed(0)),
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),
