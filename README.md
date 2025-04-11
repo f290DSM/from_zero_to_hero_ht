@@ -8,7 +8,9 @@ Iremos consumir o serviço de produtos [DummyJSON](https://dummyjson.com/docs/pr
 
 ## Criando o Projeto
 
-> Caso você não clone o projeto deste repositório, utilize o comando criação abaixo  partir do diretorio de sua preferencia execute .
+> Caso você não clone o projeto deste repositório, utilize o comando criação abaixo  partir do diretorio de sua preferencia execute. Os Widgets utilizados em sua execução você encontrará-los [aqui](https://github.com/f290DSM/from_zero_to_hero_ht/tree/final/lib/features/products/presentation/widgets)
+
+> Caso queira dar uma espiadinha na versão final, acesse a branch **final**
 
 ```shell
 flutter create --project-name=from_zero_to_hero --org=br.gov.sp.fatecararas --platforms=web,android from_zero_to_hero
